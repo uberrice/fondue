@@ -1,0 +1,15 @@
+import {mkdir,readFile,rm,writeFile} from 'node:fs/promises';
+import {Script} from 'node:vm';
+const source=(await Promise.all(['engine.js','app.js'].map(f=>readFile(new URL('../src/'+f,import.meta.url),'utf8')))).join('\n');
+if (/<\/script/i.test(source)) throw Error('Script contains an HTML closing tag');
+new Script(source,{filename:'viewer.js'});
+const shell=await readFile(new URL('../src/shell.html',import.meta.url),'utf8');
+const html=shell.replace('/*__SCRIPT__*/',()=>source);
+await writeFile(new URL('../gerber-viewer.html',import.meta.url),html);
+const site=new URL('../dist/',import.meta.url);
+await rm(site,{recursive:true,force:true});
+await mkdir(site,{recursive:true});
+await writeFile(new URL('index.html',site),html);
+await writeFile(new URL('gerber-viewer.html',site),html);
+await writeFile(new URL('.nojekyll',site),'');
+console.log('Built gerber-viewer.html and dist/ for GitHub Pages');

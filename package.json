@@ -1,0 +1,1 @@
+{"name":"fondue-gerber-viewer","version":"1.0.0","private":true,"description":"Offline single-file Gerber viewer","scripts":{"build":"node scripts/build.mjs","test":"node tests/viewer.mjs"}}
