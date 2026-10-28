@@ -33,7 +33,7 @@ The viewer has no runtime or build dependencies. Source files are in `src/`.
 node scripts/build.mjs
 ```
 
-This rebuilds the standalone HTML from the source. Tests use Node.js 22+ and the development-only `@napi-rs/canvas` package, or the installed Codex canvas runtime.
+This rebuilds the standalone HTML and the `dist/` site from the source. The generated site directory is ignored by Git. Tests use Node.js 22+ and the development-only `@napi-rs/canvas` package, or the installed Codex canvas runtime.
 
 ```sh
 npm install --no-save @napi-rs/canvas
